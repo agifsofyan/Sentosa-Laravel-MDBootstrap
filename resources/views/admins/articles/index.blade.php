@@ -2,13 +2,13 @@ cutable File  104 lines (90 sloc)  4.82 KB
   
 @extends('admins.main')
 
-@section('title', '| Kategori')
+@section('title', '| Artikel')
 
 @section('breadcrumbUrl')
     <h4 class="mb-2 mb-sm-0 pt-1 float-left">
         <a href="/admin">Dashboard</a>
         <span>/</span>
-        <a href="kategori">Kategori</a>
+        <a href="Artikel">Artikel</a>
     </h4>
     <a class="float-right btn btn-sm btn-primary" data-toggle="modal" data-target="#addMyModal">
         <i class="fas fa-plus"></i> Buat Data
@@ -17,8 +17,8 @@ cutable File  104 lines (90 sloc)  4.82 KB
 
 @section('content')
 
-@include('admins.categories.create')
-@include('admins.categories.edit')
+@include('admins.articles.create')
+@include('admins.articles.edit')
 
 <!--Grid row-->
 <div class="row wow fadeIn">
@@ -38,9 +38,10 @@ cutable File  104 lines (90 sloc)  4.82 KB
                     <thead class="blue-grey lighten-4">
                         <tr>
                             <th>ID</th>
+                            <th>Penulis</th>
+                            <th>Judul</th>
                             <th>Kategori</th>
-                            <th>Keterangan</th>
-                            <th>Tanggal</th>
+                            <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -49,26 +50,37 @@ cutable File  104 lines (90 sloc)  4.82 KB
                     <!-- Table body -->
                     <tbody>
 
-                        @if ($categories->count())
-                        @foreach ($categories as $data)
+                        @if ($data->count())
+                        @foreach ($data as $field)
 
                         <tr class="data-row">
-                            <td scope="row">{{ $data->id }}</td>
-                            <td>{{ $data->category_name }}</td>
-                            <td>{{ $data->keterangan }}</td>
-                            <td>{{ $data->created_at }}</td>
+                            <td scope="row">{{ $field->id }}</td>
+                            <td>{{ $field->author_ID }}</td>
+                            <td>{{ $field->post_title }}</td>
+                            <td>{{ $field->calledItems->category_name }}</td>
+                            <td>{{ $field->statuses=="" ? "Hidden" : "Publish"}}</td>
                             <td>
                                 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
                                     <div class="btn-group mr-2" role="group" aria-label="First group">
-                                    {{-- <button type="button" class="show btn stylish-color" pop="show" id="show" ><i class="fas fa-eye text-info"></i></button> --}}
-                                    <button type="button" class="edit btn stylish-color" pop="edit" data-id="{{ $data->id }}" data-name="{{ $data->category_name }}" data-descript="{{ $data->keterangan }}"><i class="fas fa-marker text-warning"></i></button>
-                                    <button type="button" class="remove btn stylish-color" pop="remove" id="remove" data-toggle="modal" data-target="#modalConfirmDelete{{ $data->id }}"><i class="fas fa-trash-alt text-danger"></i></button>
+                                    <button type="button" class="show btn stylish-color" pop="show" id="show" ><i class="fas fa-eye text-info"></i></button>
+                                    <button 
+                                        type="button" class="edit btn stylish-color" 
+                                        pop="edit" 
+                                        data-id="{{ $field->id }}" 
+                                        data-name="{{ $field->post_title }}" 
+                                        data-descript="{{ $field->post_content }}"
+                                        data-cat="{{ $field->category_ID }}" 
+                                        data-status="{{ $field->statuses }}" 
+                                    >
+                                        <i class="fas fa-marker text-warning"></i>
+                                    </button>
+                                    <button type="button" class="remove btn stylish-color" pop="remove" id="remove" data-toggle="modal" data-target="#modalConfirmDelete{{ $field->id }}"><i class="fas fa-trash-alt text-danger"></i></button>
                                     </div>
                                 </div>
                             </td>
                         </tr>
 
-                        @include('admins.categories.remove')
+                        {{-- @include('admins.articles.remove') --}}
 
                         @endforeach
                         @endif
@@ -120,7 +132,7 @@ cutable File  104 lines (90 sloc)  4.82 KB
         $('.modal').on('hidden.bs.modal', function(e){
           $(this).find('form')[0].reset();
           $('.form-group').find('label.error').hide();
-          $('input, textarea').removeClass('is-invalid is-valid');
+          $('input, textarea, select').removeClass('is-invalid is-valid');
         });
     });
 </script>

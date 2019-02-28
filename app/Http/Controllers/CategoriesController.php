@@ -47,7 +47,7 @@ class CategoriesController extends Controller
             $categories->save();
 
             if ($categories->save()) {
-                toastr()->success('!! Data berhasil dibuat !!');
+                toastr()->success('!! Data '.$categories->category_name.' berhasil dibuat !!');
                 return redirect()->route('categories.index', $categories->id);
             }else {
                 toastr()->error('Gagal membuat data, coba sekali lagi.');
@@ -87,7 +87,20 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $categories = Categories::findOrFail($id);
+        $categories->category_name   = $request->category_name;
+        $categories->category_slug   = str_slug($request->category_name);
+        $categories->keterangan      = $request->keterangan;
+            
+        $categories->save();
+
+        if ($categories->save()) {
+            toastr()->success('!! Data berhasil diedit !!');
+            return redirect()->route('categories.index', $categories->id);
+        }else {
+            toastr()->error('Gagal membuat data, coba sekali lagi.');
+            return back();
+        }
     }
 
     /**
@@ -98,6 +111,16 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Categories::findOrFail( $id );
+        // $post->delete();
+        // Session::flash('warning', 'Post deleted');
+        // return redirect()->route('posts.index');
+        if ($data->delete()) {
+            toastr()->info('!! Data '.$data->category_name.'  berhasil dihapus !!');
+            return redirect()->route('categories.index', $data->id);
+        }else{
+            toastr()->error('Terjadi kesalahan pada internet, coba sekali lagi.');
+            return back();
+        }
     }
 }

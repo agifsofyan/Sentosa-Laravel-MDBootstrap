@@ -314,27 +314,6 @@
       }
     });
     </script>
-
-    <script>
-      $(document).ready(function(){
-        $('.modal').on('hidden.bs.modal', function(e){
-          $(this).find('form')[0].reset();
-
-          $("input").change(function(){
-              $(this).removeClass('error is-invalid valid');
-              $(this).next().empty();
-          });
-          $("textarea").change(function(){
-              $(this).removeClass('error is-invalid valid');
-              $(this).next().empty();
-          });
-          // $("select").change(function(){
-          //     $(this).parent().parent().removeClass('has-error');
-          //     $(this).next().empty();
-          // });
-        });
-      });
-    </script>
 </body>
 
 </html>
