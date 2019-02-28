@@ -49,8 +49,10 @@
 
   <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+  {{--  <script src="https://cdn.ckeditor.com/4.11.3/standard/ckeditor.js"></script>  --}}
   @toastr_js
   @toastr_render
+  {{--  @include('ckfinder::setup')  --}}
 </head>
 
 <body class="grey lighten-3">
@@ -313,28 +315,19 @@
         }
       }
     });
-    </script>
+</script>
 
-    <script>
-      $(document).ready(function(){
-        $('.modal').on('hidden.bs.modal', function(e){
-          $(this).find('form')[0].reset();
+{{--  @include('ckfinder::setup')  --}}
 
-          $("input").change(function(){
-              $(this).removeClass('error is-invalid valid');
-              $(this).next().empty();
-          });
-          $("textarea").change(function(){
-              $(this).removeClass('error is-invalid valid');
-              $(this).next().empty();
-          });
-          // $("select").change(function(){
-          //     $(this).parent().parent().removeClass('has-error');
-          //     $(this).next().empty();
-          // });
-        });
-      });
-    </script>
+{{--  MyEditor  --}}
+<script>
+    CKEDITOR.replace('post_content',{
+        filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+        filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+        filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+        filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+    });
+    CKEDITOR.config.allowedContent = true;
+</script>
 </body>
-
 </html>

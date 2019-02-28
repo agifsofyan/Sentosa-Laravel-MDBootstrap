@@ -19,5 +19,9 @@
 Route::group(['prefix' => 'admin'], function (){
     Route::get('/', 'AdminsController@index');
     Route::resource('categories', 'CategoriesController');
-    Route::post('/categories/store', 'CategoriesController@store')->name('categories.store');
+    Route::resource('articles', 'ArticlesController');
+});
+
+Route::get('ckeditor-demo',function(){
+    return view('ckeditor.index');
 });

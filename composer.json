@@ -16,8 +16,8 @@
         "laravel/passport": "^6.0",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "~5.0",
-        "yoeunes/toastr": "^1.0",
-        "lrgt/laravel-form-ajax-validation": "dev-master"
+        "lrgt/laravel-form-ajax-validation": "dev-master",
+        "yoeunes/toastr": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

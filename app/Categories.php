@@ -10,8 +10,8 @@ class Categories extends Model
     protected $primaryKey = 'id';
     protected $fillable = ['category_name'];
 
-    // public function calledItems()
-    // {
-    //     return $this->hasMany('App\Articles', 'categories_ID');
-    // }
+    public function calledItems()
+    {
+        return $this->hasMany('App\Articles', 'category_ID');
+    }
 }
